@@ -9,6 +9,7 @@ on:
 jobs:
   verify-project:
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: Checkout repository
@@ -28,3 +29,13 @@ jobs:
 
       - name: Validate JavaScript syntax
         run: node --check script.js
+
+      - name: Check demo secret availability
+        env:
+          DEMO_MESSAGE: ${{ secrets.DEMO_MESSAGE }}
+        run: |
+          if [ -z "$DEMO_MESSAGE" ]; then
+            echo "DEMO_MESSAGE is missing."
+            exit 1
+          fi
+          echo "DEMO_MESSAGE is configured."
