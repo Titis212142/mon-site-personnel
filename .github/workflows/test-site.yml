@@ -2,14 +2,14 @@ name: Test Site
 
 on:
   push:
-    branches: [main, dev]
+    branches: [prod, dev]
   pull_request:
-    branches: [main]
+    branches: [prod]
 
 jobs:
   verify-project:
     runs-on: ubuntu-latest
-    environment: production
+    environment: prod
 
     steps:
       - name: Checkout repository
